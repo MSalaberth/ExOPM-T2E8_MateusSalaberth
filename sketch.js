@@ -1,6 +1,8 @@
 let som
 let tocarSom = false
 let amp
+let linhaRetangulos
+let tamanho = 20
 
 function preload() {
     som = loadSound("bach.mp3")
@@ -8,6 +10,8 @@ function preload() {
 
 function setup() {
     createCanvas(windowWidth, windowHeight)
+    noStroke();
+    linhaRetangulos = width / tamanho;
     amp = new p5.Amplitude()
 }
 
@@ -18,6 +22,13 @@ function draw() {
     let level = amp.getLevel()
 
     level = map(level, 0, 1, 10, 1000)
+
+    for (i = 0; i < linhaRetangulos; i++) {
+        for (j = 0; j < height; j += tamanho) {
+            fill(level, level, random(200, 255))
+            rect(0 + i * tamanho, 0 + j, tamanho, tamanho)
+        }
+    }
 
     rectMode(CENTER)
 
@@ -43,8 +54,4 @@ function mousePressed() {
         tocarSom = false
 
     }
-}
-
-function keyPressed() {
-
 }
